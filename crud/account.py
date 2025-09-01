@@ -5,7 +5,7 @@ import random
 
 
 def create_account(db: Session, account: AccountCreate, user_id: int):
-    account_number = ''.join(str(random.randint(0, 9)) for _ in range(14))  # 랜덤 14자리 숫자 생성
+    account_number = ''.join(str(random.randint(0, 9)) for _ in range(14))
     db_account = Account(user_id=user_id, account_number=account_number, balance=0, bank_name=account.bank_name)
     db.add(db_account)
     db.commit()

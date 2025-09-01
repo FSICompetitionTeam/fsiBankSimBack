@@ -15,7 +15,6 @@ router = APIRouter()
 @router.post("/deposit", response_model=TransactionOut)
 async def deposit(transaction: DepositCreate, db: Session = Depends(get_db),
                   current_user: User = Depends(get_current_user)):
-    # 입금 로직 (from_account = None)
     if transaction.account_number not in [acc.account_number for acc in get_accounts_by_user(db, current_user.id)]:
         raise HTTPException(status_code=403, detail="Not your account")
     acc = get_account_by_number(db, transaction.account_number)
@@ -36,7 +35,6 @@ async def deposit(transaction: DepositCreate, db: Session = Depends(get_db),
 @router.post("/withdraw", response_model=TransactionOut)
 async def withdraw(transaction: WithdrawCreate, db: Session = Depends(get_db),
                    current_user: User = Depends(get_current_user)):
-    # 출금 로직 (to_account = None)
     if transaction.account_number not in [acc.account_number for acc in get_accounts_by_user(db, current_user.id)]:
         raise HTTPException(status_code=403, detail="Not your account")
     acc = get_account_by_number(db, transaction.account_number)
@@ -59,7 +57,6 @@ async def withdraw(transaction: WithdrawCreate, db: Session = Depends(get_db),
 @router.post("/transfer", response_model=TransactionOut)
 async def transfer(transaction: TransferCreate, db: Session = Depends(get_db),
                    current_user: User = Depends(get_current_user)):
-    # 이전 송금 로직
     from_acc = get_account_by_number(db, transaction.from_account)
     if from_acc.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Not your account")

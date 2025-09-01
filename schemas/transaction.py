@@ -9,10 +9,10 @@ class TransactionCreate(TransactionBase):
   to_account: str | None = None
 
 class DepositCreate(TransactionBase):
-  account_number: str  # 입금 계좌
+  account_number: str
 
 class WithdrawCreate(TransactionBase):
-  account_number: str  # 출금 계좌
+  account_number: str
 
 class TransferCreate(TransactionBase):
   from_account: str

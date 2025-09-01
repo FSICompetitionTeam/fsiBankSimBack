@@ -14,7 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DB 테이블 생성
 Base.metadata.create_all(bind=engine)
 
 app.include_router(api_router, prefix="/api/v1")
